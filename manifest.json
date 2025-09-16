@@ -1,0 +1,9 @@
+{
+  "name": "yume",
+  "version": "0.0.1",
+  "minAppVersion": "1.6.3",
+  "author": "bladeacer",
+  "screenshot": "",
+  "modes": ["light", "dark"],
+  "fundingUrl": "https://github.com/sponsors/bladeacer"
+}
