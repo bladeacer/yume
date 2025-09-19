@@ -22,9 +22,9 @@ body.theme-dark {
   --color-base-05: var(--yume-base-2);
   --color-base-10: var(--yume-base-3);
   --color-base-70: #b7bdc1;
+  --color-base-20: var(--yume-base-4);
 
   --yume-mix-1: color-mix(in hsl, var(--color-base-20), var(--color-base-10));
 
-  --color-base-20: var(--yume-base-4);
   --text-normal: #f8f7fa;
 }

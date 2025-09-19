@@ -26,4 +26,11 @@ body.theme-dark {
   --h4-color: var(--color-pink);
   --h5-color: var(--color-orange);
   --h6-color: var(--color-yellow);
+
+  --inline-title-color: var(--text-accent);
+
+  --interactive-normal: var(--color-base-05);
+  --interactive-hover: var(--background-primary);
+  --interactive-accent: var(--text-accent);
+  --interactive-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
 }

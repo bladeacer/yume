@@ -1,0 +1,45 @@
+body {
+  --yume-str: "Hi";
+  --yume-str: " \a\
+/==\\ \a\
+\\==/ \a\
+\a\
+\a\
+.-======-. \a\
+.::.  .-============-.  .::. \a\
+.:==:  .:===:'      ':===:.  :==:. \a\
+.:===:   :===.    .--.    .===:   :===:. \a\
+:===:    :===.   .:====:.   .===:    :===: \a\
+(===:    :===-    :======:    -===:    :===) \a\
+:===:    :===.   ':====:'   .===:    :===: \a\
+':===:   :===.    '--'    .===:   :===:' \a\
+':==:  ':===:.      .:===:'  :==:' \a\
+'::'   '===-.  .-==='   '::' \a\
+/==\\           :===  ===:           /==\\ \a\
+\\==/           :===  ===:           \\==/ \a\
+.-.     :===  ===:     .-. \a\
+.===.   .===  ===.   .===. \a\
+.========    ========. \a\
+'''''        ''''' \a\a\a ";
+}
+
+body {
+  --yume-ascii-max-font-size: 13.5px;
+  div.empty-state-title {
+    display: unset;
+  }
+
+  div.empty-state-container {
+    transform: translateY(-200px);
+  }
+  div.empty-state-container::before {
+    font-family: var(--font-interface);
+    content: var(--yume-str);
+    background: linear-gradient(to right, var(--color-purple), var(--color-blue), var(--color-cyan));
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: pre;
+    text-align: center;
+    font-size: min(calc(3vw - 3.25px), var(--yume-ascii-max-font-size));
+  }
+}
