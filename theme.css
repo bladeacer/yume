@@ -5,39 +5,60 @@ Repository: https://github.com/bladeacer/yume
 Documentation: 
 */
 body.theme-dark {
-  --color-purple: #302f66;
+  --color-purple: #6b429f;
   --color-blue: #6b21b4;
-  --text-accent: var(--color-blue);
-  --text-highlight-bg: var(--color-7);
+  --color-green: #5e4440;
+  --color-orange: #ff7d27;
+  --color-cyan: #7c6faa;
+  --color-pink: #cccec2;
+  --color-yellow: #ec9b5d;
+  --color-red: #e44a3f;
+  --accent-h: 253;
+  --accent-s: 26%;
+  --accent-l: 55%;
+  --text-accent: var(--color-cyan);
+  --text-highlight-bg: var(--color-green);
+  --bold-color: var(--color-red);
+  --italic-color: var(--color-orange);
+  --h1-color: var(--color-blue);
+  --h2-color: var(--color-purple);
+  --h3-color: var(--color-cyan);
+  --h4-color: var(--color-pink);
+  --h5-color: var(--color-orange);
+  --h6-color: var(--color-yellow);
 }
 
 body.theme-dark {
-  --color-1: #222e44;
-  --color-2: #cdd2d5;
-  --color-4: #ffffff;
-  --color-5: #cccec2;
-  --color-6: #232125;
-  --color-7: #324b69;
-  --color-9: #222022;
-  --color-10: #202024;
-  --mixed-color-1: #090a09;
-  --yume-bg-1: #1a1d25;
-  --yume-bg-2: #202936;
-  --yume-bg-3: #202732;
-  --yume-bg-4: #192a3f;
+  --yume-base-1: #1a1d25;
+  --yume-base-2: #202732;
+  --yume-base-3: #202936;
+  --yume-base-4: #222e44;
+  --yume-base-5: #192a3f;
+  --yume-base-grey-dark: #cdd2d5;
   --yume-base-grey-light: #f0f7fc;
 }
 
-body.theme-dark {
-  --color-base-00: var(--yume-bg-1);
-  --color-base-05: var(--yume-bg-2);
-  --color-base-10: var(--yume-bg-3);
-  --color-base-20: var(--yume-bg-4);
-  --text-normal: var(--yume-base-grey-light);
+body.theme-light {
+  --color-1: #f8f7fa;
+  --color-2: #ffffff;
+  --color-3: #cdd2d5;
+  --color-4: #cccec2;
+  --yume-base-grey-light: #090a09;
 }
 
 body.theme-dark {
-  --background-primary: var(--color-base-00);
-  --background-secondary: var(--color-base-05);
-  --background-secondary-alt: var(--color-base-10);
+  --color-base-00: var(--yume-base-1);
+  --color-base-05: var(--yume-base-2);
+  --color-base-10: var(--yume-base-3);
+  --color-base-70: #b7bdc1;
+  --yume-mix-1: color-mix(in hsl, var(--color-base-20), var(--color-base-10));
+  --color-base-20: var(--yume-base-4);
+  --text-normal: #f8f7fa;
+}
+
+body.theme-dark {
+  --background-primary: var(--color-base-05);
+  --background-primary-alt: var(--color-base-15);
+  --background-secondary: var(--color-base-10);
+  --background-secondary-alt: var(--yume-mix-1);
 }
