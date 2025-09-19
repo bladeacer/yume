@@ -1,92 +1,27 @@
-/* Basic background styling */
-body {
-  --yume-lain-black-01: #10110d;
-  --yume-lain-black-02: #0f110c;
-  --yume-lian-black-03: #181b13;
-  --yume-lian-black-04: #131610;
-  --yume-lian-black-05: #0b1327;
-  --yume-lian-black-06: #091123;
-  --yume-lian-black-07: #12150f;
+body.theme-dark {
+  --color-1: #222e44;
+  --color-2: #cdd2d5;
+  --color-4: #ffffff;
+  --color-5: #cccec2;
+  --color-6: #232125;
+  --color-7: #324b69;
+  --color-9: #222022;
+  --color-10: #202024;
 
-  --yume-black-mix: #11171a;
-  --yume-black-mix-2: #101416;
-  --yume-black-mix-3: #12171d;
+  --mixed-color-1: #090a09;
 
-  --yume-lain-white-01: #fdfdfd;
-  --yume-lain-white-02: #fefefe;
-  --yume-lain-white-03: #f5edf0;
-  --yume-lain-white-04: #feffff;
-  --yume-white-mix: #d0d1d6;
+  --yume-bg-1: #1a1d25;
+  --yume-bg-2: #202936;
+  --yume-bg-3: #202732;
+  --yume-bg-4: #192a3f;
 
-  --yume-lain-gray-01: #32394c;
-  --yume-lain-gray-02: #212d43;
-  --yume-lain-gray-03: #a595b0;
-  --yume-lain-gray-04: #6e5f76;
-  --yume-lain-gray-05: #15283a;
-  --yume-lain-gray-06: #2c3239;
-  --yume-lain-gray-07: #253641;
+  --yume-base-grey-light: #f0f7fc;
 }
 
-.theme-dark {
-  --background-primary: var(--yume-black-mix);
-  --background-secondary: var(--yume-black-mix-2);
-  --background-secondary-alt: var(--yume-black-mix-3);
-  --text-normal: var(--yume-white-mix);
+body.theme-dark {
+  --color-base-00: var(--yume-bg-1);
+  --color-base-05: var(--yume-bg-2);
+  --color-base-10: var(--yume-bg-3);
+  --color-base-20: var(--yume-bg-4);
+  --text-normal: var(--yume-base-grey-light);
 }
-
-/* Blues */
-
-.theme-dark {
-  --yume-lain-blue-01: #02014e;
-  --yume-lain-blue-03: #5c10fe;
-  --yume-lain-blue-03: #658aeb;
-  --yume-blue-mix: #4f62d4;
-  --color-blue: var(--yume-blue-mix);
-  --h2-color: var(--color-blue);
-}
-
-// --yume-lain-blue-01: #02014e;
-//   --yume-lain-blue-03: #5c10fe;
-//   --yume-lain-blue-03: #658aeb;
-
-//   --yume-lain-purple-01: #1e3797;
-
-//   --yume-lain-cyan-01: #304771;
-//   --yume-lain-cyan-02: #99a1ba;
-//   --yume-lain-cyan-03: #3a9abb;
-//   --yume-lain-cyan-04: #a499cd;
-//   --yume-lain-cyan-05: #627c99;
-
-//   --yume-lain-beige-01: #abaa91;
-//   --yume-lain-beige-02: #bfc3b7;
-//   --yume-lain-beige-03: #989871;
-//   --yume-lain-beige-04: #c7c8a3;
-//   --yume-lain-beige-05: #ccbda3;
-//   --yume-lain-beige-06: #c2c7b8;
-//   --yume-lain-beige-07: #aab39a;
-
-//   --yume-lain-orange-01: #878a31;
-
-//   --yume-lain-green-01: #42433d;
-//   --yume-lain-green-02: #a07d79;
-//   --yume-lain-green-03: #719b7d;
-
-//   --yume-lain-brown-01: #443d20;
-//   --yume-lain-brown-02: #5d413e;
-
-//   --yume-lain-gray-01: #32394c;
-//   --yume-lain-gray-02: #212d43;
-//   --yume-lain-gray-03: #a595b0;
-//   --yume-lain-gray-04: #6e5f76;
-//   --yume-lain-gray-05: #15283a;
-//   --yume-lain-gray-06: #2c3239;
-//   --yume-lain-gray-07: #253641;
-
-//   --yume-lain-pink-01: #cdd2d5;
-
-//   --yume-lain-white-01: #fdfdfd;
-//   --yume-lain-white-02: #fefefe;
-//   --yume-lain-white-03: #f5edf0;
-
-//   --yume-lain-black-01: #10110d;
-//   --yume-lain-black-02: #0f110c;

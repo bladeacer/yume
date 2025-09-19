@@ -10,6 +10,7 @@ from collections import Counter
 import ast
 from datetime import datetime
 import multiprocessing
+import math
 
 # --- 1. Basic Logging Setup ---
 # Configure basic logging for the script
@@ -27,7 +28,7 @@ def _get_venv_paths(venv_path):
         venv_bin_path = os.path.join(venv_path, "Scripts")
         venv_python_path = os.path.join(venv_bin_path, "python.exe")
         venv_pip_path = os.path.join(venv_bin_path, "pip.exe")
-        venv_uv_path = os.path.join(venv_bin_path, "uv.exe")
+        venv_uv_path = os.path.join(venv_bin_path, "uv")
     else:
         # On Linux/macOS, executables are in 'bin'
         venv_bin_path = os.path.join(venv_path, "bin")
@@ -118,22 +119,59 @@ def _setup_venv(venv_path, requirements_file):
 
     logger.info("Virtual environment setup complete.")
 
-# --- 4. Core Function: Image Analysis ---
+# --- 4. Helper Functions for Color Analysis ---
+def _calculate_color_distance(color1, color2):
+    """Calculates the Euclidean distance between two RGB colors."""
+    return math.sqrt(
+        (color1[0] - color2[0])**2 +
+        (color1[1] - color2[1])**2 +
+        (color1[2] - color2[2])**2
+    )
+
+def _calculate_mixed_color(colors_in_group):
+    """Calculates the average color of a group of RGB colors."""
+    if not colors_in_group:
+        return (0, 0, 0)
+    
+    total_r = sum(c[0] for c in colors_in_group)
+    total_g = sum(c[1] for c in colors_in_group)
+    total_b = sum(c[2] for c in colors_in_group)
+    count = len(colors_in_group)
+    
+    return (int(total_r / count), int(total_g / count), int(total_b / count))
+
+# A set of common colors to group by
+TARGET_COLORS = {
+    "Red": (255, 0, 0),
+    "Green": (0, 255, 0),
+    "Blue": (92, 1, 254),
+    "Yellow": (255, 255, 0),
+    "Orange": (255, 165, 0),
+    "Pink": (255, 192, 203),
+    "Cyan": (98, 124, 153),
+    "Purple": (255, 0, 255),
+    "Black": (0, 0, 0),
+    "White": (255, 255, 255),
+    "Dark Blue": (36, 46, 68),
+    "Earthy Green": (66, 67, 61),
+    "Gray": (44, 50, 57),
+    "Dark Purple": (30, 55, 151),
+    "Gray Blue": (51, 75, 105)
+}
+
+
+# --- 5. Core Function: Image Analysis ---
 def _analyze_image(image_path, num_colors, images_dir):
     """
     Analyzes a single image and writes results to a markdown file.
     """
     try:
-        # Note: These imports are placed inside the function for `multiprocessing` compatibility,
-        # as each new process starts with a fresh global namespace.
         from PIL import Image
         from collections import Counter
     except ImportError:
         logger.error("Error: 'Pillow' library not found. Please run 'python setup.py --setup' to install dependencies.")
-        # We can't exit the whole program from a child process, so we just return
         return
 
-    # Build the full path to the image using the images_dir
     full_image_path = os.path.join(images_dir, image_path)
 
     if not os.path.exists(full_image_path):
@@ -142,14 +180,11 @@ def _analyze_image(image_path, num_colors, images_dir):
 
     try:
         image = Image.open(full_image_path)
-        # Convert to RGB to ensure consistent 3-tuple representation
         image = image.convert('RGB')
         
-        # Get image dimensions and total pixel count
         width, height = image.size
         total_pixels = width * height
         
-        # Get file modification timestamp
         mod_timestamp = os.path.getmtime(full_image_path)
         last_modified = datetime.fromtimestamp(mod_timestamp).strftime('%Y-%m-%d %H:%M:%S')
 
@@ -160,19 +195,36 @@ def _analyze_image(image_path, num_colors, images_dir):
         logger.error(f"Error processing image '{full_image_path}': {e}")
         return
 
-    # Create the results directory relative to the script's location
     script_dir = os.path.dirname(os.path.abspath(__file__))
     results_dir = os.path.join(script_dir, "results")
     os.makedirs(results_dir, exist_ok=True)
     
-    # Generate the Markdown output file
     image_file_name = os.path.basename(full_image_path)
     output_filename = os.path.join(results_dir, f"colors_of_{os.path.splitext(image_file_name)[0]}.md")
     
+    # --- New Color Grouping Logic ---
+    color_groups = {color_name: [] for color_name in TARGET_COLORS}
+    
+    for color, count in most_common_colors:
+        best_match_name = None
+        min_distance = float('inf')
+        
+        for target_name, target_color in TARGET_COLORS.items():
+            distance = _calculate_color_distance(color, target_color)
+            if distance < min_distance:
+                min_distance = distance
+                best_match_name = target_name
+        
+        if best_match_name:
+            color_groups[best_match_name].append({
+                "color": color,
+                "count": count,
+                "distance": min_distance
+            })
+
     with open(output_filename, 'w') as f:
         f.write(f"# Color Analysis of `{image_file_name}`\n\n")
         
-        # Add new image details section
         f.write("## Image Details\n\n")
         f.write(f"- **Dimensions:** `{width} x {height}`\n")
         f.write(f"- **Total Pixels:** `{total_pixels}`\n")
@@ -187,10 +239,41 @@ def _analyze_image(image_path, num_colors, images_dir):
             r, g, b = color
             hex_color = f"#{r:02x}{g:02x}{b:02x}"
             f.write(f"| `{color}` | `{hex_color}` | {count} | <span style='background-color:{hex_color}; display:inline-block; width:20px; height:20px; border:1px solid #ccc;'></span> |\n")
+
+        f.write("\n---\n\n")
+        f.write("## Color Group Analysis\n\n")
+        f.write("This section groups the most frequent colors by their similarity to a set of predefined colors.\n")
+        f.write("The 'Mixed Color' is the average RGB of all colors in the group.\n")
+
+        for group_name, colors_in_group in color_groups.items():
+            if not colors_in_group:
+                continue
+
+            mixed_color = _calculate_mixed_color([c['color'] for c in colors_in_group])
+            r, g, b = mixed_color
+            mixed_hex = f"#{r:02x}{g:02x}{b:02x}"
+
+            f.write(f"\n### Colors Resembling {group_name}\n\n")
+            f.write(f"**Mixed Color:** `{mixed_color}` (`{mixed_hex}`) ")
+            f.write(f"<span style='background-color:{mixed_hex}; display:inline-block; width:20px; height:20px; border:1px solid #ccc;'></span>\n\n")
+            
+            # Sort colors by distance (lower is better) and take top 5
+            sorted_colors = sorted(colors_in_group, key=lambda x: x['distance'])
+            top_x_similar = sorted_colors[:10]
+
+            f.write("| Color (RGB) | Color (Hex) | Count | Similarity Score | Color Swatch |\n")
+            f.write("| :--- | :--- | :--- | :--- | :---: |\n")
+
+            for item in top_x_similar:
+                color, count, distance = item['color'], item['count'], item['distance']
+                r, g, b = color
+                hex_color = f"#{r:02x}{g:02x}{b:02x}"
+                f.write(f"| `{color}` | `{hex_color}` | {count} | `{distance:.2f}` | <span style='background-color:{hex_color}; display:inline-block; width:20px; height:20px; border:1px solid #ccc;'></span> |\n")
             
     logger.info(f"Successfully wrote color analysis results to '{output_filename}'.")
 
-# --- 5. Core Function: Create Summary ---
+
+# --- 6. Core Function: Create Summary ---
 def _create_summary():
     """
     Scans all image analysis markdown files and creates a summary.md file.
@@ -206,6 +289,9 @@ def _create_summary():
     all_color_counts = Counter()
     analyzed_files = []
     
+    # New data structure to aggregate unique, grouped colors from all files
+    all_grouped_colors = {group_name: {} for group_name in TARGET_COLORS.keys()}
+
     logger.info("Starting summary creation. Scanning for analysis files...")
     
     for filename in os.listdir(results_dir):
@@ -215,20 +301,28 @@ def _create_summary():
             with open(file_path, 'r') as f:
                 content = f.read()
                 
-                # Extract image details using a more robust parsing method
                 details = {}
                 lines = content.splitlines()
                 
                 in_details_section = False
+                in_grouped_colors_section = False
+                current_group_name = None
+
                 for line in lines:
                     if "## Image Details" in line:
                         in_details_section = True
-                        continue # Move to the next line to start parsing
+                        continue
                     
-                    # Stop parsing details when a new section starts
                     if "## Most Frequent Colors" in line:
-                        break
-                        
+                        in_details_section = False
+                        in_grouped_colors_section = False
+                        continue
+                    
+                    if "## Color Group Analysis" in line:
+                        in_grouped_colors_section = True
+                        continue
+                    
+                    # Parse image details section
                     if in_details_section:
                         if "**Dimensions:**" in line:
                             details['dimensions'] = line.split('`')[1] if '`' in line else 'N/A'
@@ -236,32 +330,53 @@ def _create_summary():
                             details['pixels'] = line.split('`')[1] if '`' in line else 'N/A'
                         elif "**Last Modified:**" in line:
                             details['modified'] = line.split('`')[1] if '`' in line else 'N/A'
-                            
-                # Append the dictionary containing both filename and details
+
+                    # Parse color group tables
+                    if in_grouped_colors_section:
+                        if line.startswith('### Colors Resembling '):
+                            current_group_name = line.replace('### Colors Resembling ', '').strip()
+                            continue
+                        if current_group_name and line.strip().startswith('| `('):
+                            parts = [p.strip() for p in line.split('|')]
+                            try:
+                                rgb_str = parts[1].strip('` ').strip('()')
+                                r, g, b = [int(val.strip()) for val in rgb_str.split(',')]
+                                color_tuple = (r, g, b)
+                                count = int(parts[3].strip())
+                                distance = float(parts[4].strip('` '))
+                                
+                                # Only add colors with a similarity score of 35 or less
+                                if distance <= 35:
+                                    # Use the color tuple as a key for uniqueness
+                                    if color_tuple not in all_grouped_colors[current_group_name] or \
+                                       distance < all_grouped_colors[current_group_name][color_tuple]['distance']:
+                                        all_grouped_colors[current_group_name][color_tuple] = {
+                                            "color": color_tuple,
+                                            "count": count,
+                                            "distance": distance,
+                                        }
+                            except (ValueError, IndexError, TypeError) as e:
+                                logger.warning(f"Failed to parse line in '{filename}': {line}. Error: {e}")
+                                
                 analyzed_files.append({
                     'filename': filename,
                     'details': details
                 })
                 
-                # Extract color counts with more robust parsing
+                # For the top 10 summary, we still use the old method
                 for line in content.splitlines():
                     if line.strip().startswith('| `('):
                         parts = [p.strip() for p in line.split('|')]
                         try:
-                            # Extract the string inside the parentheses
                             rgb_str = parts[1].strip('` ').strip('()')
-                            # Split by comma and convert to integers
                             r, g, b = [int(val.strip()) for val in rgb_str.split(',')]
                             color_tuple = (r, g, b)
                             count = int(parts[3].strip())
                             all_color_counts[color_tuple] += count
-                        except (ValueError, IndexError, TypeError) as e:
-                            logger.warning(f"Could not parse color data from line in {filename}: {line.strip()}. Error: {e}")
+                        except (ValueError, IndexError, TypeError):
+                            pass
     
-    # Filter out files without details from the list
     files_with_details = [f for f in analyzed_files if f.get('details') and f['details'].get('dimensions')]
-
-    # Find the top 10 most frequent colors overall
     most_common_overall = all_color_counts.most_common(10)
     
     with open(summary_file, 'w') as f:
@@ -281,6 +396,39 @@ def _create_summary():
             f.write("No color data was found to summarize.\n")
 
         f.write("\n---\n\n")
+        f.write("## Overall Color Group Analysis\n\n")
+        f.write("This section aggregates unique, similar colors from all images into groups. Only colors with a similarity score of 35 or less are included, as a lower score indicates a closer match.\n")
+        f.write("The 'Mixed Color' is the average RGB of all unique colors in the group across all images.\n")
+
+        for group_name, colors_in_group_dict in all_grouped_colors.items():
+            if not colors_in_group_dict:
+                continue
+
+            # Get the list of color data objects
+            colors_in_group = list(colors_in_group_dict.values())
+            
+            mixed_color = _calculate_mixed_color([c['color'] for c in colors_in_group])
+            r, g, b = mixed_color
+            mixed_hex = f"#{r:02x}{g:02x}{b:02x}"
+
+            f.write(f"\n### All Colors Resembling {group_name}\n\n")
+            f.write(f"**Mixed Color:** `{mixed_color}` (`{mixed_hex}`) ")
+            f.write(f"<span style='background-color:{mixed_hex}; display:inline-block; width:20px; height:20px; border:1px solid #ccc;'></span>\n\n")
+            
+            # Sort colors by distance (lower is better) and take top 5
+            sorted_colors = sorted(colors_in_group, key=lambda x: x['distance'])
+            top_x_similar = sorted_colors[:10]
+
+            f.write("| Color (RGB) | Color (Hex) | Count | Similarity Score | Color Swatch |\n")
+            f.write("| :--- | :--- | :--- | :--- | :---: |\n")
+
+            for item in top_x_similar:
+                color, count, distance = item['color'], item['count'], item['distance']
+                r, g, b = color
+                hex_color = f"#{r:02x}{g:02x}{b:02x}"
+                f.write(f"| `{color}` | `{hex_color}` | {count} | `{distance:.2f}` | <span style='background-color:{hex_color}; display:inline-block; width:20px; height:20px; border:1px solid #ccc;'></span> |\n")
+
+        f.write("\n---\n\n")
         f.write("## Analyzed Image Details\n\n")
         if files_with_details:
             f.write("This table shows the technical details for each analyzed image.\n\n")
@@ -294,7 +442,7 @@ def _create_summary():
 
     logger.info(f"Successfully created summary file at '{summary_file}'.")
 
-# --- 6. Main Script Logic ---
+# --- 7. Main Script Logic ---
 def main():
     parser = argparse.ArgumentParser(
         description="Manages project setup and image analysis."
@@ -381,6 +529,5 @@ def main():
         _create_summary()
 
 if __name__ == "__main__":
-    # This is required for multiprocessing to work on all platforms
     main()
 
