@@ -195,8 +195,8 @@ def _analyze_image(image_path, num_colors, images_dir):
         logger.error(f"Error processing image '{full_image_path}': {e}")
         return
 
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    results_dir = os.path.join(script_dir, "results")
+    script_dir = os.path.dirname("../../../")
+    results_dir = os.path.join(script_dir, "@700 ¬TD Theme Dev")
     os.makedirs(results_dir, exist_ok=True)
     
     image_file_name = os.path.basename(full_image_path)
@@ -278,8 +278,8 @@ def _create_summary():
     """
     Scans all image analysis markdown files and creates a summary.md file.
     """
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    results_dir = os.path.join(script_dir, "results")
+    script_dir = os.path.dirname("../../../")
+    results_dir = os.path.join(script_dir, "@700 ¬TD Theme Dev")
     summary_file = os.path.join(results_dir, "summary.md")
     
     if not os.path.exists(results_dir):

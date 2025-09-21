@@ -1,38 +1,38 @@
 body.theme-dark {
-  --color-blue: oklch(0.675 0.13 295.7);
-  --color-purple: oklch(0.625 0.1543 307.48);
-  --color-cyan: oklch(0.575 0.0901 293.49);
+  // --color-blue: oklch(0.675 0.13 295.7);
+  // --color-purple: oklch(0.625 0.1543 307.48);
+  // --color-cyan: oklch(0.575 0.0901 293.49);
 
-  --color-pink: oklch(0.825 0.0165 114.43);
-  --color-yellow: oklch(0.775 0.1246 56.88);
-  --color-orange: oklch(0.725 0.182 48.56);
+  // --color-pink: oklch(0.825 0.0165 114.43);
+  // --color-yellow: oklch(0.775 0.1246 56.88);
+  // --color-orange: oklch(0.725 0.182 48.56);
 
-  --color-red: oklch(0.624 0.23 28.06);
-  --color-green: oklch(0.425 0.05 28.65);
+  // --color-red: oklch(0.624 0.23 28.06);
+  // --color-green: oklch(0.425 0.05 28.65);
   
   // Accent color
-  --accent-h: 253;
-  --accent-s: 26%;
-  --accent-l: 55%;
-  --text-accent: var(--color-cyan);
+  // --accent-h: 253;
+  // --accent-s: 26%;
+  // --accent-l: 55%;
+  // --text-accent: var(--color-cyan);
 
   // Highlight colors
-  --text-highlight-bg: var(--color-green);
-  --bold-color: var(--color-red);
-  --italic-color: var(--color-orange);
+  // --text-highlight-bg: var(--color-green);
+  // --bold-color: var(--color-red);
+  // --italic-color: var(--color-orange);
 
   // Heading colors
-  --h1-color: var(--color-blue);
-  --h2-color: var(--color-purple);
-  --h3-color: var(--color-cyan);
-  --h4-color: var(--color-pink);
-  --h5-color: var(--color-yellow);
-  --h6-color: var(--color-orange);
+  // --h1-color: var(--color-blue);
+  // --h2-color: var(--color-purple);
+  // --h3-color: var(--color-cyan);
+  // --h4-color: var(--color-pink);
+  // --h5-color: var(--color-yellow);
+  // --h6-color: var(--color-orange);
 
-  --inline-title-color: var(--text-accent);
+  // --inline-title-color: var(--text-accent);
 
-  --interactive-normal: var(--color-base-05);
-  --interactive-hover: var(--background-primary);
-  --interactive-accent: var(--text-accent);
-  --interactive-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  // --interactive-normal: var(--color-base-05);
+  // --interactive-hover: var(--background-primary);
+  // --interactive-accent: var(--text-accent);
+  // --interactive-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
 }
