@@ -6,3 +6,8 @@ anime.
 
 ## Project status
 WIP
+
+<!-- source ./.venv/bin/activate -->
+<!-- 
+    ./setup.py --analyze-image --num-colors 25 --gui-max-swatches 15 --num-clusters 10
+-->

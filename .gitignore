@@ -1,2 +1,4 @@
 images/*
 .venv/
+color_analysis.db
+clusters.md
