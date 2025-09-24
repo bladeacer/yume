@@ -6,11 +6,11 @@ body:not(.is-mobile) .workspace-split.mod-left-split .workspace-sidedock-vault-p
   border-top: none;
 }
 
-.is-hidden-frameless:not(.is-fullscreen):not(.mod-macos)
-  .workspace-tabs.mod-top-right-space
-  .workspace-tab-header-container:after {
-  z-index: -5;
-}
+// .is-hidden-frameless:not(.is-fullscreen):not(.mod-macos)
+//   .workspace-tabs.mod-top-right-space
+//   .workspace-tab-header-container:after {
+//   z-index: -5;
+// }
 
 body {
   .workspace-ribbon {
@@ -191,11 +191,6 @@ body {
       margin-top: 12px;
       flex-direction: row;
     }
-  }
-  &.is-hidden-frameless:not(.is-fullscreen)
-    .workspace-tabs.mod-top-right-space
-    .workspace-tab-header-container {
-    padding-right: 8px;
   }
 }
 

@@ -4,6 +4,42 @@ License: GPLv3
 Repository: https://github.com/bladeacer/yume
 Documentation: 
 */
+body.theme-dark {
+  --color-blue: #6820af;
+  --color-purple: #5c1d9f;
+  --color-pink: #cacdc3;
+  --color-green: #443633;
+  --text-highlight-bg: var(--color-green);
+  --h1-color: var(--color-blue);
+  --h2-color: var(--color-purple);
+  --h3-color: var(--color-pink);
+}
+
+body.theme-dark {
+  --yume-base-1: #0c1216;
+  --yume-base-2: #1c1f29;
+  --yume-base-3: #213249;
+  --yume-base-grey-light: #e0eae5;
+}
+
+body.theme-dark {
+  --yume-mix-1: color-mix(in hsl, var(--yume-base-1), var(--yume-base-2));
+  --yume-mix-2: color-mix(in hsl, var(--yume-base-1), var(--yume-base-3));
+  --color-base-00: var(--yume-base-1);
+  --color-base-05: var(--yume-mix-1);
+  --color-base-10: var(--yume-base-2);
+  --color-base-20: var(--yume-mix-2);
+  --color-base-25: var(--yume-base-3);
+  --text-normal: var(--yume-base-grey-light);
+}
+
+body.theme-dark {
+  --background-primary: var(--color-base-05);
+  --background-primary-alt: var(--color-base-00);
+  --background-secondary: var(--color-base-15);
+  --background-secondary-alt: var(--color-base-10);
+}
+
 body {
   --yume-str: "Hi";
   --yume-str: " \a/==\\ \a\\==/ \a \a \a.-======-. \a.::.  .-============-.  .::. \a.:==:  .:===:'      ':===:.  :==:. \a.:===:   :===.    .--.    .===:   :===:. \a:===:    :===.   .:====:.   .===:    :===: \a(===:    :===-    :======:    -===:    :===) \a:===:    :===.   ':====:'   .===:    :===: \a':===:   :===.    '--'    .===:   :===:' \a':==:  ':===:.      .:===:'  :==:' \a'::'   '===-.  .-==='   '::' \a/==\\           :===  ===:           /==\\ \a\\==/           :===  ===:           \\==/ \a.-.     :===  ===:     .-. \a.===.   .===  ===.   .===. \a.========    ========. \a'''''        ''''' \a \a \a";
@@ -35,10 +71,6 @@ body {
 
 body:not(.is-mobile) .workspace-split.mod-left-split .workspace-sidedock-vault-profile {
   border-top: none;
-}
-
-.is-hidden-frameless:not(.is-fullscreen):not(.mod-macos) .workspace-tabs.mod-top-right-space .workspace-tab-header-container:after {
-  z-index: -5;
 }
 
 body .workspace-ribbon {
@@ -193,9 +225,6 @@ body .mod-sidedock.mod-right-split .workspace-tabs .workspace-leaf-content .nav-
 body .mod-sidedock.mod-left-split .workspace-tabs .workspace-leaf-content .nav-header + div {
   margin-top: 12px;
   flex-direction: row;
-}
-body.is-hidden-frameless:not(.is-fullscreen) .workspace-tabs.mod-top-right-space .workspace-tab-header-container {
-  padding-right: 8px;
 }
 
 body {
