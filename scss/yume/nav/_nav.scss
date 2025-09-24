@@ -6,11 +6,15 @@ body:not(.is-mobile) .workspace-split.mod-left-split .workspace-sidedock-vault-p
   border-top: none;
 }
 
-// .is-hidden-frameless:not(.is-fullscreen):not(.mod-macos)
-//   .workspace-tabs.mod-top-right-space
-//   .workspace-tab-header-container:after {
-//   z-index: -5;
-// }
+.is-hidden-frameless:not(.is-fullscreen):not(.mod-macos)
+  .workspace-tabs.mod-top-right-space
+  .workspace-tab-header-container:after {
+  z-index: -5;
+}
+
+.is-hidden-frameless:not(.is-fullscreen) .workspace-tabs.mod-top-right-space .workspace-tab-header-container {
+    padding-right: 0px;
+}
 
 body {
   .workspace-ribbon {
@@ -108,10 +112,6 @@ body {
     padding-left: 0;
   }
 
-  .workspace-leaf-content {
-    width: unset;
-  }
-
   .workspace-leaf {
     background-color: transparent;
   }
@@ -167,6 +167,19 @@ body {
     .nav-header {
       width: min-content;
     }
+    .metadata-properties {
+      flex-direction: column;
+    }
+    .metadata-property {
+      flex-direction: column;
+      div {
+        flex-direction: row;
+      }
+      .metadata-property-key {
+        width: 100%;
+      }
+    }
+
     .nav-buttons-container {
       margin-top: -1px;
       gap: 2.5px;
