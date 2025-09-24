@@ -1,31 +1,41 @@
 body.theme-dark {
   --yume-base-1: #0c1216;
-  --yume-base-2: #1c1f29;
-  --yume-base-3: #213249;
-  // --yume-base-4: #443633;
-  // --yume-base-5: #afaba7;
+  --yume-base-2: #11161a;
+  --yume-base-3: #192642;
+  --yume-base-4: #213249;
+  --yume-base-5: #344d6d;
 
-  // --yume-base-grey-dark: #cacdc3;
+  --yume-base-grey-dark: #1c1f29;
   --yume-base-grey-light: #e0eae5;
 }
 
 // body.theme-light {
-//   --color-1: #f8f7fa;
-//   --color-2: #ffffff;
-//   --color-3: #cdd2d5;
+//   --color-1: #fefdfb;
+//   --color-2: #e0eae5;
+//   --color-3: #c5c6be;
 //   --color-4: #cccec2;
 //   --yume-base-grey-light: #090a09;
 // }
 
 body.theme-dark {
   --yume-mix-1: color-mix(in hsl, var(--yume-base-1), var(--yume-base-2));
-  --yume-mix-2: color-mix(in hsl, var(--yume-base-1), var(--yume-base-3));
+  --yume-mix-2: color-mix(in hsl, var(--yume-base-2), var(--yume-base-3));
+  --yume-mix-3: color-mix(in hsl, var(--yume-base-3), var(--yume-base-4));
+  --yume-mix-4: color-mix(in hsl, var(--yume-base-4), var(--yume-base-5));
+  --yume-grey-mix: color-mix(in hsl, var(--yume-base-grey-light), var(--yume-base-grey-dark));
 
   --color-base-00: var(--yume-base-1);
   --color-base-05: var(--yume-mix-1);
   --color-base-10: var(--yume-base-2);
   --color-base-20: var(--yume-mix-2);
   --color-base-25: var(--yume-base-3);
+  --color-base-30: var(--yume-mix-3);
+  --color-base-35: var(--yume-base-4);
+  --color-base-40: var(--yume-mix-4);
+  --color-base-50: var(--yume-base-5);
+  --color-base-60: var(--yume-base-grey-dark);
+  --color-base-70: var(--yume-grey-mix);
+  --color-base-100: var(--yume-base-grey-light);
 
   --text-normal: var(--yume-base-grey-light);
 }

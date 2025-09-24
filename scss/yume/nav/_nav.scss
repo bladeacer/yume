@@ -12,7 +12,7 @@ body:not(.is-mobile) .workspace-split.mod-left-split .workspace-sidedock-vault-p
   z-index: -5;
 }
 
-.is-hidden-frameless:not(.is-fullscreen) .workspace-tabs.mod-top-right-space .workspace-tab-header-container {
+.is-hidden-frameless:not(.is-fullscreen) .is-right-sidedock-open .workspace-tabs.mod-top-right-space .workspace-tab-header-container {
     padding-right: 0px;
 }
 
