@@ -123,16 +123,6 @@ body {
   }
 }
 
-body:not(.show-ribbon) {
-  .sidebar-toggle-button {
-    padding: 11px 16px 7px 0px;
-  }
-
-  .sidebar-toggle-button.mod-left {
-    padding-top: 16px;
-  }
-}
-
 body {
   .mod-sidedock.mod-right-split .workspace-tabs,
   .mod-sidedock.mod-left-split .workspace-tabs {
@@ -227,7 +217,6 @@ body {
 }
 
 body {
-  --ribbon-width: 48px;
   --tab-radius-active: 0px;
   --tab-divider-color: transparent;
   --tab-outline-color: transparent;
@@ -235,74 +224,6 @@ body {
   .workspace-tab-header-inner {
     border-radius: 0px;
   }
-}
-
-body {
-  .tree-item-inner {
-    white-space: normal;
-    overflow: visible;
-    text-overflow: clip;
-  }
-}
-
-body {
-  div[data-path$=".md"] {
-    div.nav-file-tag {
-      display: none;
-    }
-
-    div.nav-file-title-content::after {
-      content: ".md";
-      opacity: var(--dimmed);
-    }
-  }
-
-  div {
-    div.nav-file-tag {
-      opacity: var(--dimmed);
-      background-color: unset;
-      text-transform: lowercase;
-      font-size: calc(var(--nav-item-size) - 0.075rem);
-      margin: unset;
-      padding: unset;
-      font-weight: unset;
-
-      &::before {
-        content: ".";
-      }
-    }
-  }
-}
-
-body {
-  .nav-files-container {
-    padding: 2px 8px 24px 8px;
-    margin-left: -16px;
-  }
-  .collapse-icon svg {
-    display: none;
-  }
-
-  .tree-item-children {
-    border-inline-start: none;
-  }
-
-  .nav-file-title {
-    opacity: 0.85;
-  }
-}
-
-body {
-  --scrollbar-bg: transparent;
-  div.modal-content.vertical-tabs-container {
-    & ::-webkit-scrollbar-thumb {
-      display: none;
-    }
-  }
-}
-body:not(.native-scrollbars) ::-webkit-scrollbar {
-  background-color: var(--scrollbar-bg);
-  width: 9px;
 }
 
 body {

@@ -167,13 +167,6 @@ body .sidebar-toggle-button.mod-left {
   height: unset;
 }
 
-body:not(.show-ribbon) .sidebar-toggle-button {
-  padding: 11px 16px 7px 0px;
-}
-body:not(.show-ribbon) .sidebar-toggle-button.mod-left {
-  padding-top: 16px;
-}
-
 body .mod-sidedock.mod-right-split .workspace-tabs,
 body .mod-sidedock.mod-left-split .workspace-tabs {
   display: flex;
@@ -280,7 +273,6 @@ body .mod-stacked .workspace-tab-header-inner-title::before {
 }
 
 body {
-  --ribbon-width: 48px;
   --tab-radius-active: 0px;
   --tab-divider-color: transparent;
   --tab-outline-color: transparent;
@@ -288,6 +280,28 @@ body {
 }
 body .workspace-tab-header-inner {
   border-radius: 0px;
+}
+
+body {
+  --modal-border-color: transparent;
+}
+body .modal.mod-settings .vertical-tab-header {
+  border-inline-end: none;
+}
+body .setting-item {
+  border-top: none;
+}
+
+.markdown-preview-view {
+  will-change: scroll-position;
+}
+
+.markdown-preview-view > .markdown-preview-pusher {
+  will-change: margin-bottom;
+}
+
+body .workspace.is-right-sidedock-open .mod-right-split .mod-top .view-content {
+  padding-top: 36px;
 }
 
 body .tree-item-inner {
@@ -331,6 +345,17 @@ body .nav-file-title {
 }
 
 body {
+  --ribbon-width: 48px;
+}
+
+body:not(.show-ribbon) .sidebar-toggle-button {
+  padding: 11px 16px 7px 0px;
+}
+body:not(.show-ribbon) .sidebar-toggle-button.mod-left {
+  padding-top: 16px;
+}
+
+body {
   --scrollbar-bg: transparent;
 }
 body div.modal-content.vertical-tabs-container ::-webkit-scrollbar-thumb {
@@ -340,26 +365,4 @@ body div.modal-content.vertical-tabs-container ::-webkit-scrollbar-thumb {
 body:not(.native-scrollbars) ::-webkit-scrollbar {
   background-color: var(--scrollbar-bg);
   width: 9px;
-}
-
-body {
-  --modal-border-color: transparent;
-}
-body .modal.mod-settings .vertical-tab-header {
-  border-inline-end: none;
-}
-body .setting-item {
-  border-top: none;
-}
-
-.markdown-preview-view {
-  will-change: scroll-position;
-}
-
-.markdown-preview-view > .markdown-preview-pusher {
-  will-change: margin-bottom;
-}
-
-body .workspace.is-right-sidedock-open .mod-right-split .mod-top .view-content {
-  padding-top: 36px;
 }

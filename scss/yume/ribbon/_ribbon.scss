@@ -1,0 +1,14 @@
+body {
+  --ribbon-width: 48px;
+}
+
+body:not(.show-ribbon) {
+  .sidebar-toggle-button {
+    padding: 11px 16px 7px 0px;
+  }
+
+  .sidebar-toggle-button.mod-left {
+    padding-top: 16px;
+  }
+}
+
