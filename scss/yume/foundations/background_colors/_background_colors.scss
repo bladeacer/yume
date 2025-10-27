@@ -4,3 +4,8 @@ body.theme-dark {
   --background-secondary: var(--color-base-15);
   --background-secondary-alt: var(--color-base-10);
 }
+
+body {
+  --menu-background: var(--background-primary);
+  --status-bar-background: var(--background-primary);
+}
